@@ -1,0 +1,36 @@
+{
+    "label" : "lock",
+    "action" : "hyprlock || loginctl lock-session",
+    "text" : "Get out! 󰱪",
+    "keybind" : "l"
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate || loginctl hibernate",
+    "text" : "Enter cryostasis ",
+    "keybind" : "h"
+}
+{
+    "label" : "logout",
+    "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; pkill Hyprland || pkill sway || pkill niri || hyprctl dispatch exit || loginctl terminate-user $USER",
+    "text" : "Coup d'état ",
+    "keybind" : "q"
+}
+{
+    "label" : "shutdown",
+    "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl poweroff || loginctl poweroff",
+    "text" : "Pull out the plug 󰚛",
+    "keybind" : "s"
+}
+{
+    "label" : "suspend",
+    "action" : "systemctl suspend || loginctl suspend",
+    "text" : "Bedtime! 󰒲",
+    "keybind" : "u"
+}
+{
+    "label" : "reboot",
+    "action" : "hyprctl clients -j | jq -r '.[].pid' | xargs kill; systemctl reboot || loginctl reboot",
+    "text" : "See ya in a sec... 󰑐",
+    "keybind" : "r"
+}
