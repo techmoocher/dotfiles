@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+trap 'echo -e "\033[1;31m[ERROR]\033[0m Failed to uninstall Nix. Check out line $LINENO"; exit 1' ERR
+
+DRY_RUN=false
+[[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true
+
 RED="\033[1;31m"
 GREEN="\033[1;32m"
 YELLOW="\033[1;33m"
@@ -18,21 +23,31 @@ run_cmd() {
     local cmd="$1"
     local use_sudo="${2:-false}"
 
-    echo -e "${CYAN}---- ${use_sudo:+sudo }execution ------------------------------------------------------------${RESET}"
-    echo -e "I am executing:\n"
+    echo -e "${CYAN}------ ${use_sudo:+sudo }execution ------${RESET}"
+    echo -e "The following command will be executed:\n"
     echo -e "    $cmd\n"
 
+    if [ "$DRY_RUN" = true ]; then
+        info "[DRY RUN] Skipping execution"
+        return 0
+    fi
+
+    set +e
     if [ "$use_sudo" = true ]; then
         sudo bash -c "$cmd"
     else
         bash -c "$cmd"
     fi
+    local status=$?
+    set -e
+
+    return $status
 }
 
 
 check_sudo() {
     if ! sudo -v; then
-        error "This script requires sudo privileges."
+        error "sudo privileges are required."
         exit 1
     fi
 }
@@ -41,13 +56,35 @@ check_systemd() {
     command -v systemctl >/dev/null 2>&1
 }
 
-safe_rm() {
+check_install_type() {
+    if check_systemd && systemctl list-unit-files | grep -q '^nix-daemon\.service'; then
+        echo "multi"
+        return
+    fi
+
+    if getent group nixbld >/dev/null 2>&1; then
+        echo "multi"
+        return
+    fi
+
+    if [ -d /nix ]; then
+        echo "single"
+        return
+    fi
+
+    echo "none"
+}
+
+remove_nix_files() {
     for path in "$@"; do
         if [ -e "$path" ]; then
-            run_cmd "rm -rf \"$path\"" true
-            ok "Removed $path"
+            if run_cmd "rm -rf \"$path\"" true; then
+                ok "Removed $path"
+            else
+                warn "Failed to remove $path"
+            fi
         else
-            warn "Skipping $path (not found)"
+            warn "$path cannot be found. Skipping..."
         fi
     done
 }
@@ -75,7 +112,7 @@ remove_systemd() {
         info "Stopping and disabling nix-daemon..."
 
         run_cmd "systemctl stop nix-daemon.service" true || warn "Failed to stop service"
-        run_cmd "systemctl disable nix-daemon.socket nix-daemon.service" true || warn "Disable failed"
+        run_cmd "systemctl disable nix-daemon.socket nix-daemon.service" true || warn "Failed to disable service"
         run_cmd "systemctl daemon-reload" true
 
         ok "Systemd cleanup done"
@@ -87,7 +124,15 @@ remove_systemd() {
 main() {
     echo -e "${GREEN}=== Complete Nix Uninstallation ===${RESET}"
 
-    check_sudo
+    if [ "$DRY_RUN" = false ]; then
+        check_sudo
+    else
+        info "Running in DRY RUN mode. No changes will be made..."
+    fi
+
+    TYPE=$(check_install_type)
+
+    info "Detected installation type: $TYPE"
 
     read -rp "Proceed with uninstalling Nix? [y/N]: " confirm
     if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
@@ -95,29 +140,56 @@ main() {
         exit 0
     fi
 
-    remove_systemd
+    case "$TYPE" in
+        multi)
+            info "Running multi-user uninstallation process..."
 
-    info "Removing Nix files..."
+            remove_systemd
 
-    safe_rm \
-        /etc/nix \
-        /etc/profile.d/nix.sh \
-        /etc/tmpfiles.d/nix-daemon.conf \
-        /nix \
-        "$HOME/.local/share/nix" \
-        "$HOME/.local/state/nix" \
-        "$HOME/.cache/nix" \
-        "$HOME/.nix-defexpr" \
-        "$HOME/.nix-profile" \
-        "$HOME/.nix-channels" \
-        /root/.nix-channels \
-        /root/.nix-defexpr \
-        /root/.nix-profile \
-        /root/.cache/nix
+            remove_nix_files \
+                /etc/nix \
+                /etc/profile.d/nix.sh \
+                /etc/tmpfiles.d/nix-daemon.conf \
+                /nix \
+                /root/.nix-channels \
+                /root/.nix-defexpr \
+                /root/.nix-profile \
+                /root/.cache/nix \
+                "$HOME/.local/share/nix" \
+                "$HOME/.local/state/nix" \
+                "$HOME/.cache/nix" \
+                "$HOME/.nix-defexpr" \
+                "$HOME/.nix-profile" \
+                "$HOME/.nix-channels"
 
-    remove_nix_users
+            remove_nix_users
+            ;;
 
-    ok "Nix has been fully removed 🎉"
+        single)
+            info "Running single-user uninstallation process..."
+
+            run_cmd "rm -rf /nix" true
+
+            remove_nix_files \
+                "$HOME/.nix-channels" \
+                "$HOME/.nix-defexpr" \
+                "$HOME/.nix-profile" \
+                "$HOME/.local/share/nix" \
+                "$HOME/.local/state/nix" \
+                "$HOME/.cache/nix"
+          ;;
+
+        none)
+            warn "Nix not found. Terminating..."
+            exit 0
+            ;;
+    esac
+
+    if [ "$DRY_RUN" = true ]; then
+        ok "Dry run completed. No changes were made."
+    else
+        ok "Nix has been uninstalled successfully!"
+    fi
 }
 
 main "$@"
