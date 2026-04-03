@@ -41,6 +41,8 @@ run_cmd() {
     local status=$?
     set -e
 
+    echo
+
     return $status
 }
 
