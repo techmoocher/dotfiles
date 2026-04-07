@@ -1,0 +1,190 @@
+[app]
+overall           = { bg = "#2A1E24" }
+
+[mgr]
+cwd               = { fg = "#FFFFFF", bg = "#FFA5D2", bold = true, italics = true }
+border_style      = { fg = "#FFDCFF", bold = true }
+find_keyword      = { fg = "#FFFFFF", bg = "#FFC855", bold = true, underline = true }
+hovered           = { fg = "black", bg = "#FFA0D8", bold = true }
+preview_hovered   = { fg = "#FFDCF5" }
+
+#marker_selected   = { bg = "#9BFF78" }
+#marker_copied     = { bg = "#F2B90F" }
+#marker_cut        = { bg = "#FF8A8A" }
+#count_selected    = { fg = "#000000", bg = "#9BFF78", bold = true }
+#count_copied      = { fg = "#000000", bg = "#F2B90F", bold = true }
+#count_cut         = { fg = "#000000", bg = "#FF8A8A", bold = true }
+marker_selected    = { fg = "black", bg = "green", bold = true }
+marker_copied      = { fg = "black", bg = "yellow", bold = true }
+marker_cut         = { fg = "black", bg = "red", bold = true }
+count_selected    = { fg = "black", bg = "green", bold = true }
+count_copied      = { fg = "black", bg = "yellow", bold = true }
+count_cut         = { fg = "black", bg = "red", bold = true }
+
+[indicator]
+parent            = { fg = "#3A2420", bg = "#FFA0D7", bold = true }
+current           = { fg = "#4B2E2A", bg = "#FFC8D7", bold = true }
+preview           = { fg = "#52352C", bg = "#FFE8D1", bold = true }
+padding           = { open = "", close = "" }
+
+
+[tabs]
+active            = { fg = "#000000", bg = "#FFB4FF", bold = true, underline = true }
+inactive          = { fg = "#FFB4FF", bg = "#646464" }
+sep_inner         = { open = "|", close = "|" }
+
+[mode]
+normal_main       = { fg = "#1F1B24", bg = "#F8BBD0" }
+normal_alt        = { fg = "#FCE4EC", bg = "#2C2533" }
+
+select_main       = { fg = "#FFFFFF", bg = "#EC407A" }
+select_alt        = { fg = "#1F1B24", bg = "#F48FB1" }
+
+unset_main        = { fg = "#B39DDB", bg = "#1F1B24" }
+unset_alt         = { fg = "#CE93D8", bg = "#2C2533" }
+
+[status]
+overall           = { fg = "#E1E1E1", bg = "#483748" }
+
+#perm_type         = { fg = "#64DCFF" }
+#perm_read         = { fg = "#FFFF64" }
+#perm_write        = { fg = "#FF80AB" }
+#perm_exec         = { fg = "#78FF64" }
+#perm_sep          = { fg = "#B39DDB" }
+perm_type         = { fg = "blue" }
+perm_read         = { fg = "yellow" }
+perm_write        = { fg = "red" }
+perm_exec         = { fg = "green" }
+perm_sep          = { fg = "magenta" }
+
+progress_label    = { fg = "#FCE4EC" }
+progress_normal   = { fg = "#F48FB1" }
+progress_error    = { fg = "#F44336" }
+
+[which]
+cols              = 2
+separator         = " ✿  "
+mask              = { fg = "#F8BBD0", bg = "#1F1B24" }
+cand              = { fg = "#EC407A", bold = true }
+rest              = { fg = "#F48FB1" }
+desc              = { fg = "#DCC8FF" }
+separator_style   = { fg = "#AD1457" }
+
+[confirm]
+btn_labels        = [" [Y]es 🌸 ", " [N]o 🌑 "]
+border            = { fg = "#FFDCFF", bold = true }
+title             = { fg = "#FF5078", bold = true }
+content           = { fg = "#FFDCF5" }
+list              = { fg = "#F096FF" }
+btn_yes           = { fg = "#1F1B24", bg = "#F48FB1", bold = true }
+btn_no            = { fg = "#FFFFFF", bg = "#AD1457" }
+
+[spot]
+border            = { fg = "#FFDCFF", bold = true }
+title             = { fg = "#FFA5E6", bold = true }
+tbl_col           = { fg = "#FFDCF5" }
+tbl_cell          = { fg = "#000000", bg = "#F096FF", bold = true }
+
+[notify]
+title_info        = { fg = "#64DCFF", bold = true }
+title_warning     = { fg = "#FFFF64", bold = true }
+title_error       = { fg = "#FF80AB", bold = true }
+
+[pick]
+border            = { fg = "#FFA5E6", bold = true }
+active            = { fg = "#000000", bg = "#FFA0D8", bold = true }
+inactive          = { fg = "#FFDCF5" }
+
+[help]
+on                = { fg = "#64DCFF", bold = true }
+run               = { fg = "#FF5078" }
+desc              = { fg = "#FFDCF5", bold = true }
+hovered           = { reversed = true, bold = true }
+footer            = { fg = "#E1E1E1", bg = "#483748", bold = true, italic = true }
+icon_info         = "🌸"
+icon_warn         = "⚠️"
+icon_error        = "💔"
+
+[input]
+border            = { fg = "#FFDCFF", bold = true }
+title             = { fg = "#FFA5E6", bold = true }
+value             = { fg = "#FFDCF5" }
+selected          = { fg = "#000000", bg = "#FFA0D8" }
+
+[cmp]
+border            = { fg = "#FFDCFF", bold = true }
+active            = { fg = "#000000", bg = "#FFA0D8", bold = true }
+inactive          = { fg = "#FFDCF5" }
+icon_file         = ""
+icon_folder       = "󰝰"
+icon_command      = ""
+
+[tasks]
+border            = { fg = "#FFDCFF", bold = true }
+title             = { fg = "#FFA5E6", bold = true }
+hovered           = { fg = "#000000", bg = "#FFA0D8", bold = true }
+
+[icon]
+prepend_dirs = [
+  { name = "Downloads",           text = "󰉍",     fg = "#78FF64" },
+  { name = "Desktop",             text = "󰇄",     fg = "cyan"    },
+  { name = ".config",             text = "",     fg = "#A56E00" },
+  { name = ".cargo",              text = "󱘗",     fg = "#BE410E" },
+  { name = ".cache",              text = "󰃨",     fg = "#B9FF78" },
+  { name = ".local",              text = "󱂵",     fg = "#64EBFF" },
+  { name = ".git",                text = "",     fg = "#F1502F" },
+  { name = ".npm",                text = "",     fg = "#E64B4B" },
+]
+
+prepend_exts = [
+  { name = "mp3",                 text = "",     fg = "#D764FF" },
+  { name = "wav",                 text = "",     fg = "#D764FF" },
+  { name = "m4a",                 text = "",     fg = "#D764FF" },
+  { name = "aac",                 text = "",     fg = "#D764FF" },
+  { name = "flac",                text = "",     fg = "#D764FF" },
+  { name = "aif",                 text = "",     fg = "#D764FF" },
+  { name = "aiff",                text = "",     fg = "#D764FF" },
+  { name = "ogg",                 text = "",     fg = "#D764FF" },
+
+  { name = "jpg",                 text = "",     fg = "#4BFF4B" },
+  { name = "jpeg",                text = "",     fg = "#4BFF4B" },
+  { name = "jfif",                text = "",     fg = "#4BFF4B" },
+  { name = "png",                 text = "",     fg = "#4BFF4B" },
+  { name = "gif",                 text = "",     fg = "#4BFF4B" },
+  { name = "tif",                 text = "",     fg = "#4BFF4B" },
+  { name = "tiff",                text = "",     fg = "#4BFF4B" },
+  { name = "webp",                text = "",     fg = "#4BFF4B" },
+  { name = "heic",                text = "",     fg = "#4BFF4B" },
+  { name = "svg",                 text = "",     fg = "#4BFF4B" },
+  { name = "eps",                 text = "",     fg = "#4BFF4B" },
+
+  { name = "mp4",                 text = "",     fg = "#E150FF" },
+  { name = "mov",                 text = "",     fg = "#E150FF" },
+  { name = "avi",                 text = "",     fg = "#E150FF" },
+  { name = "mkv",                 text = "",     fg = "#E150FF" },
+  { name = "wmv",                 text = "",     fg = "#E150FF" },
+
+  { name = "pdf",                 text = "",     fg = "#FF0000" },
+  { name = "docx",                text = "",     fg = "#185ABD" },
+  { name = "pptx",                text = "󱎐",     fg = "#D24726" },
+  { name = "xlsx",                text = "󱎏",     fg = "#217346" },
+  { name = "psd",                 text = "",     fg = "#31A8FF" },
+  { name = "txt",                 text = "",     fg = "#D7D7D7" },
+
+  { name = "conf",                text = "",     fg = "#FF5500" },
+  { name = "ini",                 text = "",     fg = "#FF5500" },
+]
+
+prepend_conds = [
+  { if = "hidden & !(dir)",       text = "󰊠",     fg = "#A5A5A5" },
+  { if = "dir",                   text = "󰉋",     fg = "#FF87E1" },
+  { if = "!(dir | link)",         text = "",     fg = "#FFFFFF" },
+
+  { if = ".gitconfig",            text = "󰊢",     fg = "#F1502F" },
+  { if = ".gitignore",            text = "󰊢",     fg = "#F1502F" },
+  { if = ".gitattribute",         text = "󰊢",     fg = "#F1502F" },
+  { if = ".gitmodules",           text = "󰊢",     fg = "#F1502F" },
+  { if = ".gitkeep",              text = "󰊢",     fg = "#F1502F" },
+  { if = ".gitreview",            text = "󰊢",     fg = "#F1502F" },
+  { if = ".gitmessage",           text = "󰊢",     fg = "#F1502F" },
+]

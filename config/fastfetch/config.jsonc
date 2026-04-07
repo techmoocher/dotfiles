@@ -1,0 +1,154 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "source": "~/.config/fastfetch/images/archlinux-girl.png",
+    "height": 16,
+    "padding": {
+      "top": 4,
+      "left": 4,
+      "right": 4
+    }
+  },
+  "modules": [
+    /***** GENERAL *****/
+    {
+      "type": "custom",
+      "format": "\u001b[38;2;255;182;193m┌───────────────────── General ──────────────────────┐"
+    },
+
+    // {
+    //   "type": "custom",
+    //   "format": "\u001b[38;2;255;182;193m│"
+    // },
+
+    {
+      "type": "datetime",
+      "key": "│ 󰃭 Date-Time",
+      "format": "{weekday-short} {month-name-short} {day-pretty}, {year} at {hour-pretty}:{minute-pretty}:{second-pretty} ({timezone-name})",
+      "keyColor": "#ffb6c1"
+    },
+    {
+      "type": "battery",
+      "key": "│  Battery",
+      "format": "{capacity} remains ({status})",
+      "keyColor": "#ffb6c1"
+    },
+    {
+      "type": "uptime",
+      "key": "│  Uptime",
+      "format": "{hours} hours, {minutes} mins",
+      "keyColor": "#ffb6c1"
+    },
+    {
+      "type": "title",
+      "key": "│  User",
+      "format": "{user-name-colored} @ {host-name-colored}",
+      "keyColor": "#ffb6c1"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[38;2;255;182;193m└────────────────────────────────────────────────────┘"
+    },
+
+    "break",
+
+    /***** HARDWARE *****/
+    {
+      "type": "custom",
+      "format": "\u001b[38;2;255;255;178m┌───────────────────── Hardware ─────────────────────┐"
+    },
+    {
+      "type": "host",
+      "key": "│  PC",
+      "format": "",
+      "keyColor": "#ffffb2"
+    },
+    {
+      "type": "cpu",
+      "key": "│ ├  CPU",
+      "format": "{name} ({cores-logical}) @ {freq-max}",
+      "keyColor": "#ffffb2"
+    },
+    {
+      "type": "gpu",
+      "key": "│ ├ 󰐿 GPU",
+      "format": "{vendor} {name} @ {frequency}",
+      "keyColor": "#ffffb2"
+    },
+    {
+      "type": "memory",
+      "key": "│ ├  RAM",
+      "format": "{used} / {total} ({percentage})",
+      "keyColor": "#ffffb2"
+    },
+    {
+      "type": "disk",
+      "key": "│ ├ 󰋊 Disk",
+      "format": "{size-used} / {size-total} ({size-percentage}) [{filesystem}]",
+      "keyColor": "#ffffb2"
+    },
+    {
+      "type": "display",
+      "key": "│ └ 󰔂 Display",
+      "format": "{name} {inch}\" - {width}x{height} x{scale-factor} @ {refresh-rate} Hz",
+      "keyColor":"#ffffb2"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[38;2;255;255;178m└────────────────────────────────────────────────────┘"
+    },
+
+    "break",
+
+    /***** SOFTWARE *****/
+    {
+      "type": "custom",
+      "format": "\u001b[38;2;112;198;255m┌───────────────────── Software ─────────────────────┐"
+    },
+    {
+      "type": "os",
+      "format": "{pretty-name}",
+      "key": "│  OS",
+      "keyColor": "#70c6ff"
+    },
+    {
+      "type": "kernel",
+      "key": "│ ├  Kernel",
+      "format": "{sysname} {release} {arch}",
+      "keyColor": "#70c6ff"
+    },
+    {
+      "type": "wm",
+      "key": "│ ├  WM",
+      "format": "{pretty-name} {version} ({protocol-name})",
+      "keyColor": "#70c6ff"
+    },
+    {
+      "type": "shell",
+      "key": "│ ├  Shell",
+      "format": "{pretty-name} {version}",
+      "keyColor": "#70c6ff"
+    },
+    {
+      "type": "terminal",
+      "key": "│ ├  Terminal",
+      "format": "{pretty-name} {version}",
+      "keyColor": "#70c6ff"
+    },
+    {
+      "type": "packages",
+      "key": "│ └ 󰛫 Packages",
+      "format": "{all} (pacman)",
+      "keyColor": "#70c6ff"
+    },
+    {
+      "type": "custom",
+      "format": "\u001b[38;2;112;198;255m└────────────────────────────────────────────────────┘"
+    }
+
+    // {
+    //   "type": "colors",
+    //   "symbol": "circle"
+    // },
+  ]
+}

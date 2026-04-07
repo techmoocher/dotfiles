@@ -1,0 +1,158 @@
+[mgr]
+keymap = [
+  ### GENERAL ###
+  #{ on = "<Esc>",           run = "quit",                         desc = "Quit the process" },
+  { on = "<C-u>",           run = "suspend",                      desc = "Suspend the process" },
+  { on = "q",               run = "quit",                         desc = "Quit the process" },
+  { on = "Q",               run = "quit --no-cwd-file",           desc = "Quit without outputting cwd-file" },
+  { on = "X",               run = "escape",                       desc = "Exit visual mode, clear selection, or cancel search" },
+  { on = ".",               run = "hidden toggle",                desc = "Toggle the visibility of hidden files" },
+  { on = "<F1>",            run = "help",                         desc = "Open help menu" },
+  { on = "?",               run = "help",                         desc = "Open help menu" },
+  { on = "`",               run = "help",                         desc = "Open help menu" },
+  { on = "T",               run = "tasks show",                   desc = "Show task manager" },
+
+  ### MODES ###
+  { on = "S",               run = "visual_mode",                  desc = "Enter visual mode (selection)" },
+  { on = "U",               run = "visual_mode --unset",          desc = "Enter visual mode (unset)" },
+  { on = "X",               run = "escape",                       desc = "Exit visual mode, clear selection, or cancel search" },
+
+  ### NAVIGATION ###
+  { on = "h",               run = "leave",                        desc = "Back to the parent directory" },
+  { on = "j",               run = "arrow next",                   desc = "Next file" },
+  { on = "k",               run = "arrow prev",                   desc = "Previous file" },
+  { on = "l",               run = "enter",                        desc = "Enter the child directory" },
+
+  { on = "<Left>",          run = "leave",                        desc = "Back to the parent directory" },
+  { on = "<Down>",          run = "arrow next",                   desc = "Next file" },
+  { on = "<Up>",            run = "arrow prev",                   desc = "Previous file" },
+  { on = "<Right>",         run = "enter",                        desc = "Enter the child directory" },
+
+  { on = "H",               run = "back",                         desc = "Back to previous directory" },
+  { on = "L",               run = "forward",                      desc = "Forward to next directory" },
+  { on = "J",               run = "arrow bot",                    desc = "Go to bottom" },
+  { on = "K",               run = "arrow top",                    desc = "Go to top" },
+
+  ### TAB ###
+  { on = "<C-t>",           run = "tab_create",                   desc = "Create a new tab at ~" },
+  { on = "<A-t>",           run = "tab_create --current",         desc = "Create a new tab at CWD" },
+  { on = "<C-w>",           run = "tab_close",                    desc = "Close current tab" },
+
+  { on = ["t", "1"],        run = "tab_switch 0",                 desc = "Switch to tab 1" },
+  { on = ["t", "2"],        run = "tab_switch 1",                 desc = "Switch to tab 2" },
+  { on = ["t", "3"],        run = "tab_switch 2",                 desc = "Switch to tab 3" },
+  { on = ["t", "4"],        run = "tab_switch 3",                 desc = "Switch to tab 4" },
+  { on = ["t", "5"],        run = "tab_switch 4",                 desc = "Switch to tab 5" },
+  { on = ["t", "6"],        run = "tab_switch 5",                 desc = "Switch to tab 6" },
+  { on = ["t", "7"],        run = "tab_switch 6",                 desc = "Switch to tab 7" },
+  { on = ["t", "8"],        run = "tab_switch 7",                 desc = "Switch to tab 8" },
+  { on = ["t", "9"],        run = "tab_switch 8",                 desc = "Switch to tab 9" },
+  { on = ["t", "0"],        run = "tab_switch 9",                 desc = "Switch to tab 10" },
+
+  ### FILES OPERATIONS ###
+  # Open
+  { on = "o",               run = "open",                         desc = "Open selected file(s)" },
+  { on = "O",               run = "open --interactive",           desc = "Open selected file(s) interactively" },
+  { on = "<Enter>",         run = "open --interactive",           desc = "Open selected file(s) interactively" },
+  # Spot
+  { on = "<Tab>",           run = "spot",                         desc = "Spot hovered file" },
+  # Toggle
+  { on = "<Space>",         run = ["toggle", "arrow next"],       desc = "Toggle the current selection state - pointer move backward" },
+  { on = "<C-Space>",       run = ["arrow prev", "toggle"],       desc = "Toggle the current selection state - pointer move upward" },
+  { on = "<C-a>",           run = "toggle_all",                   desc = "Select/Deselect all files" },
+  # Yank - Unyank - Paste
+  { on = ["y", "y"],        run = "unyank",                       desc = "Cancle the yank status" },
+  { on = ["y", "c"],        run = "yank",                         desc = "Yank selected file(s) (copy)" },
+  { on = ["y", "x"],        run = "yank --cut",                   desc = "Yank selected file(s) (cut)" },
+
+  { on = "y",               run = "yank",                         desc = "Yank selected file(s) (copy)" },
+  { on = "x",               run = "unyank",                       desc = "Cancel the yank status" },
+
+  { on = "<C-c>",           run = "yank",                         desc = "Yank selected file(s) (copy)" },
+  { on = "<C-x>",           run = "yank --cut",                   desc = "Yank selected file(s) (cut)" },
+  { on = "<C-v>",           run = "paste",                        desc = "Paste yanked file(s)" },
+  { on = ["p", "p"],        run = "paste",                        desc = "Paste yanked file(s)" },
+  { on = ["p", "P"],        run = "paste --force",                desc = "Paste yanked file(s) (overwrite if the destination exists)" },
+  # Trash - Delete
+  { on = ["d", "d"],        run = "remove",                       desc = "Trash selected file(s)" },
+  { on = ["d", "D"],        run = "remove --permanently",         desc = "Delete selected file(s) permanently" },
+  { on = "<C-d>",           run = "remove",                       desc = "Trash selected file(s)" },
+  { on = "<Delete>",        run = "remove",                       desc = "Trash selected file(s)" },
+  # Rename
+  { on = "<F2>",            run = "rename --cursor=before_ext --hovered",   desc = "Rename hovered" },
+  { on = "r",               run = "rename --cursor=before_ext --hovered",   desc = "Rename hovered file" },
+  # Link
+  { on = "-",               run = "link",                         desc = "Symlink the absolute path of yanked file(s)" },
+  { on = "_",               run = "link --relative",              desc = "Symlink the relative path of yanked file(s)" },
+  { on = "<C-->",           run = "hardlink",                     desc = "Hardlink yanked file(s)" },
+  # Create
+  { on = ["n", "n"],        run = "create",                       desc = "Create a new file (ends with / for directory)" },
+  { on = ["n", "N"],        run = "create --dir",                 desc = "Create a new folder" },
+
+  ### PREVIEW ###
+  { on = "<A-j>",           run = "seek 5",                       desc = "Scroll down 5 lines in preview panel" },
+  { on = "<A-k>",           run = "seek -5",                      desc = "Scroll up 5 lines in preview panel" },
+
+  ### SEARCH & FILTER ###
+  # Search
+  { on = ["s", "f"],        run = "search --via=fd",              desc = "Search files by name (via fd)" },
+  { on = ["s", "r"],        run = "search --via=rg",              desc = "Search files by content (via ripgrep)" },
+  { on = ["s", "c"],        run = "escape --search",              desc = "Cancel ongoing search" },
+  #{ on = "<C-Left>",        run = "find --smart --previous",      desc = "Find previous browsed file" },
+  #{ on = "<C-Right>",       run = "find --smart --next",          desc = "Find forward browsed file" },
+  # Filter
+  { on = "f",               run = "filter --smart",               desc = "Filter files" },
+
+  ### DIRECTORY NAVIGATION ###
+  { on = "z",               run = "plugin fzf",                   desc = "Jump to a file/directory via fzf" },
+  { on = "Z",               run = "plugin zoxide",                desc = "Jump to a directory via zoxide" },
+  { on = "/",               run = "cd --interactive",             desc = "Jump interactively" },
+  { on = "<Home>",          run = "cd ~",                         desc = "Go to ~" },
+  #{ on = ["g", "<Enter>"],  run = "cd --interactive",             desc = "Jump interactively" },
+  { on = ["g", "g"],        run = "arrow top",                    desc = "Go to top" },
+  { on = ["g", "G"],        run = "arrow bot",                    desc = "Go to bottom" },
+  { on = ["g", "h"],        run = "cd ~",                         desc = "Go to home directory" },
+  { on = ["g", "d"],        run = "cd ~/Downloads",               desc = "Go to ~/Downloads" },
+  { on = ["g", "c"],        run = "cd ~/.config",                 desc = "Go to ~/.config" },
+  { on = ["g", "f"],        run = "follow",                       desc = "Follow hovered symlink" },
+
+  ### PAGE NAVIGATION ###
+  { on = "<C-PageUp>",      run = "arrow -100%",                  desc = "Move cursor up one page" },
+  { on = "<C-PageDown>",    run = "arrow 100%",                   desc = "Move cursor down one page" },
+  { on = "<S-PageUp>",      run = "arrow -50%",                   desc = "Move cursor up half page" },
+  { on = "<S-PageDown>",    run = "arrow 50%",                    desc = "Move cursor down half page" },
+  { on = "<PageUp>",        run = "arrow top",                    desc = "Move cursor to top" },
+  { on = "<PageDown>",      run = "arrow bot",                    desc = "Move cursor to bottom" },
+  { on = "<C-k>",           run = "arrow -50%",                   desc = "Move cursor up half page" },
+  { on = "<C-j>",           run = "arrow 50%",                    desc = "Move cursor down half page" },
+
+  ### LINEMODE ###
+  { on = ["m", "s"],        run = "linemode size",                desc = "Linemode: size" },
+  { on = ["m", "b"],        run = "linemode btime",               desc = "Linemode: btime" },
+  { on = ["m", "m"],        run = "linemode mtime",               desc = "Linemode: mtime" },
+  { on = ["m", "p"],        run = "linemode permissions",         desc = "Linemode: permissions" },
+  { on = ["m", "o"],        run = "linemode owner",               desc = "Linemode: owner" },
+
+  ### SHELL ###
+  { on = ";",               run = "shell --interactive",          desc = "Run a shell command" },
+  { on = ":",               run = 'shell kitty --orphan --directory "$YAZI_CWD"',  desc = "Run a terminal at currently working directory (orphan)" },
+]
+
+[tasks]
+keymap = [
+  { on = "<Esc>",           run = "close",                        desc = "Hide task manager" },
+
+  { on = "j",               run = "arrow next",                   desc = "Next task" },
+  { on = "k",               run = "arrow prev",                   desc = "Previous task" },
+  { on = "J",               run = "arrow bot",                    desc = "Move to the bottom" },
+  { on = "K",               run = "arrow top",                    desc = "Move to the top" },
+
+  { on = "<Down>",          run = "arrow next",                   desc = "Next task" },
+  { on = "<Up>",            run = "arrow prev",                   desc = "Previous task" },
+  { on = "<C-Down>",        run = "arrow bot",                    desc = "Move to the bottom" },
+  { on = "<C-Up>",          run = "arrow top",                    desc = "Move to the top" },
+
+  { on = "<Enter>",         run = "inspect",                      desc = "Inspect the task log" },
+  { on = "X",               run = "cancel",                       desc = "Cancel the task" },
+  { on = "h",               run = "help",                         desc = "Open help menu" },
+]

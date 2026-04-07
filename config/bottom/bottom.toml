@@ -1,0 +1,135 @@
+[flags]
+basic                           = false
+tree                            = false
+expanded                        = false
+disable_click                   = true
+hide_k_threads                  = false
+show_table_scroll_position      = true
+temperature_type                = "c" # "c", "f", "k", "celsius", "fahrenheit", "kelvin"
+
+hide_avg_cpu                    = false
+average_cpu_row                 = false
+unnormalized_cpu                = false
+
+rate                            = 1000
+default_time_value              = 60000
+time_delta                      = 15000
+retention                       = "10m"
+
+use_old_network_legend          = true
+network_use_log                 = false
+network_use_binary_prefix       = true
+network_legend                  = "top-right"
+
+enable_cache_memory             = false
+process_memory_as_value         = true
+disable_advanced_kill           = false
+memory_legend                   = "bottom-left"
+
+#case_sensitive = false
+#whole_word = false
+#regex = false
+
+###### WIDGETS ######
+[processes]
+# PID, Name, CPU%, Mem%, R/s, W/s, T.Read, T.Write, User, State, Time, GMem%, GPU%
+columns = ["PID", "Name", "CPU%", "Mem%", "R/s", "W/s", "T.Read", "T.Write", "Time"]
+get_threads = false
+
+[cpu]
+# "all" (default), "average"/"avg"
+default = "all"
+
+[disk]
+# Disk, Mount, Used, Free, Total, Used%, Free%, R/s, W/s
+columns = ["Disk", "Mount", "Total", "Used", "Free", "Used%", "R/s", "W/s"]
+
+#[temperature]
+#[temperature.sensor_filter]
+#is_list_ignored = true
+#list = ["cpu", "wifi"]
+#regex = false
+#whole_word = false
+#case_sensitive = false
+
+#[network]
+#[network.interface_filter]
+#is_list_ignored = true
+#list = ["virbr0.*"]
+#regex = false
+#whole_word = false
+#case_sensitive = false
+
+
+###### STYLING ######
+[styles]
+# Available options: ["default", "default-light", "gruvbox", "gruvbox-light", "nord", "nord-light"]
+theme = "gruvbox"
+
+#[styles.cpu]
+#all_entry_color = "green"
+#avg_entry_color = "red"
+#cpu_core_colors = ["light magenta", "light yellow", "light cyan", "light green", "light blue", "cyan", "green", "blue"]
+
+#[styles.memory]
+#ram_color = "light magenta"
+#cache_color = "light red"
+#swap_color = "light yellow"
+#arc_color = "light cyan"
+#gpu_colors = ["light blue", "light red", "cyan", "green", "blue", "red"]
+
+#[styles.network]
+#rx_color = "light magenta"
+#tx_color = "light yellow"
+#rx_total_color = "light cyan"
+#tx_total_color = "light green"
+
+[styles.battery]
+high_battery_color    = "green"
+medium_battery_color  = "yellow"
+low_battery_color     = "red"
+
+#[styles.tables]
+#headers = {color = "light blue", bold = true}
+
+#[styles.graphs]
+#graph_color = "gray"
+#legend_text = {color = "gray"}
+
+#[styles.widgets]
+#border_color = "gray"
+#selected_border_color = "light blue"
+#widget_title = {color = "gray"}
+#text = {color = "gray"}
+#selected_text = {color = "black", bg_color = "light blue"}
+#disabled_text = {color = "dark gray"}
+
+# Only on Linux
+#thread_text = {color = "green"}
+
+###### LAYOUT ######
+# Available widgets: "cpu", "memory", "network", "processes", "temperature", "disk", "battery", "empty"
+[[row]]
+  ratio = 30
+  [[row.child]]
+    ratio = 80
+    type  = "cpu"
+  [[row.child]]
+    ratio = 20
+    type  = "battery"
+[[row]]
+  ratio = 40
+  [[row.child]]
+    ratio = 60
+    type  = "memory"
+  [[row.child]]
+    ratio = 40
+    type  = "network"
+[[row]]
+  ratio = 30
+    [[row.child]]
+      ratio = 60
+      type  = "processes"
+    [[row.child]]
+      ratio = 40
+      type  = "temperature"

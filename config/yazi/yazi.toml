@@ -1,0 +1,58 @@
+[mgr]
+title_format        = "Current: {cwd}"
+ratio               = [2, 5, 3]
+scrolloff           = 5
+
+sort_by             = "natural" # none, mtime, btime, extension, alphabetical, natural, size, random
+sort_sensitive      = false
+sort_dir_first      = true
+
+linemode            = "owner_size_mtime"
+
+show_hidden         = false
+show_symlink        = true
+
+[preview]
+wrap                = "yes"
+image_filter        = "triangle"
+
+[input]
+cursor_blink        = true
+cd_title            = "Go to..."
+create_title        = ["Create a new file...", "Create a new directory..."]
+rename_title        = "Rename to..."
+filter_title        = "Filter..."
+find_title          = ["Find...", "Find previously browsed..."]
+search_title        = "Search via {n}..."
+shell_title         = ["Enter a command...", "Enter a command (block)..."]
+
+[opener]
+play_mpv = [
+  { run = 'mpv "$@"', orphan = true, for = "unix", desc = "Play with mpv" },
+]
+
+open_image = [
+  { run = 'nomacs "$@"', orphan = true, for = "unix", desc = "View with Nomacs" },
+]
+
+edit = [
+  { run = '$EDITOR "$@"', block = true, for = "unix", desc = "Edit with $EDITOR" },
+]
+
+open_zathura = [
+  { run = 'zathura "$@"', for = "unix", desc = "Open with Zathura" },
+]
+
+open_browser = [
+  { run = 'xdg-open "$@"', for = "unix", desc = "Open with Browser" },
+]
+
+[open]
+prepend_rules = [
+  { name = "*.json",    use = [ "edit" ] },
+  { name = "*.html",    use = [ "open_browser", "edit" ] },
+  { name = "*.pdf",     use = [ "open_zathura" ] },
+  { name = "*.mp4",     use = [ "play_mpv" ] },
+  { name = "*.png",     use = ["open_image"] },
+  { name = "*.jpg",     use = ["open_image"] },
+]
