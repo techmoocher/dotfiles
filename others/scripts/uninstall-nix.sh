@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-trap 'echo -e "\033[1;31m[ERROR]\033[0m Failed to uninstall Nix. Check out line $LINENO"; exit 1' ERR
+trap 'printf "\033[1;31m[ERROR]\033[0m Failed to uninstall Nix.\nCheck out line $LINENO"; exit 1' ERR
 
 DRY_RUN=false
 [[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true
@@ -23,12 +23,12 @@ run_cmd() {
     local cmd="$1"
     local use_sudo="${2:-false}"
 
-    echo -e "${CYAN}------ ${use_sudo:+sudo }execution ------${RESET}"
+    echo -e "${CYAN}------ ${use_sudo:+sudo }execution ------${RESET}\n"
     echo -e "The following command will be executed:\n"
-    echo -e "    $cmd\n"
+    echo -e "    \$ $cmd\n"
 
     if [ "$DRY_RUN" = true ]; then
-        info "[DRY RUN] Skipping execution"
+        info "[DRY RUN] Skipping execution\n"
         return 0
     fi
 
@@ -40,8 +40,6 @@ run_cmd() {
     fi
     local status=$?
     set -e
-
-    echo
 
     return $status
 }
@@ -77,7 +75,23 @@ check_install_type() {
     echo "none"
 }
 
+remove_systemd() {
+    if check_systemd; then
+        echo -e "${BLUE}1. Stopping nix-daemon${RESET}"
+
+        run_cmd "systemctl stop nix-daemon.service" true || warn "Failed to stop service"
+        run_cmd "systemctl disable nix-daemon.socket nix-daemon.service" true || warn "Failed to disable service"
+        run_cmd "systemctl daemon-reload" true
+
+        ok "Systemd cleanup done\n"
+    else
+        warn "Systemd not found. Skipping...\n"
+    fi
+}
+
 remove_nix_files() {
+    echo -e "${BLUE}2. Removing Nix files${RESET}"
+
     for path in "$@"; do
         if [ -e "$path" ]; then
             if run_cmd "rm -rf \"$path\"" true; then
@@ -89,10 +103,12 @@ remove_nix_files() {
             warn "$path cannot be found. Skipping..."
         fi
     done
+
+    echo
 }
 
 remove_nix_users() {
-    info "Removing nixbld users..."
+    echo -e "${BLUE}3. Removing nixbld users${RESET}"
 
     for i in $(seq 1 32); do
         if id "nixbld$i" &>/dev/null; then
@@ -109,27 +125,13 @@ remove_nix_users() {
     fi
 }
 
-remove_systemd() {
-    if check_systemd; then
-        info "Stopping and disabling nix-daemon..."
-
-        run_cmd "systemctl stop nix-daemon.service" true || warn "Failed to stop service"
-        run_cmd "systemctl disable nix-daemon.socket nix-daemon.service" true || warn "Failed to disable service"
-        run_cmd "systemctl daemon-reload" true
-
-        ok "Systemd cleanup done"
-    else
-        warn "Systemd not found, skipping service removal"
-    fi
-}
-
 main() {
-    echo -e "${GREEN}=== Complete Nix Uninstallation ===${RESET}"
+    echo -e "${GREEN}====== NIX UNINSTALLATION ======${RESET}\n"
 
     if [ "$DRY_RUN" = false ]; then
         check_sudo
     else
-        info "Running in DRY RUN mode. No changes will be made..."
+        info "DRY RUN is enabled. No changes will be made.\n"
     fi
 
     TYPE=$(check_install_type)
@@ -137,15 +139,16 @@ main() {
     info "Detected installation type: $TYPE"
 
     read -rp "Proceed with uninstalling Nix? [y/N]: " confirm
+    echo
     if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-        warn "Aborted."
+        warn "ABORTED"
         exit 0
     fi
 
+    echo -e "${GREEN}UNINSTALLATION INITIATED...${GREEN}\n"
+
     case "$TYPE" in
         multi)
-            info "Running multi-user uninstallation process..."
-
             remove_systemd
 
             remove_nix_files \
@@ -168,8 +171,6 @@ main() {
             ;;
 
         single)
-            info "Running single-user uninstallation process..."
-
             run_cmd "rm -rf /nix" true
 
             remove_nix_files \
