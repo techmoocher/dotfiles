@@ -1,0 +1,5 @@
+[Default]
+save_dir=$HOME/.cache/swappy
+save_filename_format=%Y%m%d-%H%M%S.png
+show_panel=true
+auto_save=false
