@@ -13,7 +13,7 @@ keymap = [
   { on = "T",               run = "tasks show",                   desc = "Show task manager" },
 
   ### MODES ###
-  { on = "S",               run = "visual_mode",                  desc = "Enter visual mode (selection)" },
+  { on = "V",               run = "visual_mode",                  desc = "Enter visual mode (selection)" },
   { on = "U",               run = "visual_mode --unset",          desc = "Enter visual mode (unset)" },
   { on = "X",               run = "escape",                       desc = "Exit visual mode, clear selection, or cancel search" },
 
@@ -107,7 +107,7 @@ keymap = [
   { on = "z",               run = "plugin fzf",                   desc = "Jump to a file/directory via fzf" },
   { on = "Z",               run = "plugin zoxide",                desc = "Jump to a directory via zoxide" },
   { on = "/",               run = "cd --interactive",             desc = "Jump interactively" },
-  { on = "<Home>",          run = "cd ~",                         desc = "Go to ~" },
+  { on = "<Home>",          run = "cd ~",                         desc = "Go to home directory" },
   #{ on = ["g", "<Enter>"],  run = "cd --interactive",             desc = "Jump interactively" },
   { on = ["g", "g"],        run = "arrow top",                    desc = "Go to top" },
   { on = ["g", "G"],        run = "arrow bot",                    desc = "Go to bottom" },
