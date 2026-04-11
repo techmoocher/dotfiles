@@ -11,7 +11,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
   history-beginning-search-backward
 )
 
-bindkey '^ ' autosuggest-accept   # Ctrl + Space
+#bindkey '^ ' autosuggest-accept   # Ctrl + Space
 
 zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
