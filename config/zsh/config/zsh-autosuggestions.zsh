@@ -1,14 +1,17 @@
 autoload -Uz compinit
 compinit
 
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#5c5c5c'
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(
+  history-search-forward
+  history-search-backward
+  history-beginning-search-forward
+  history-beginning-search-backward
+)
+
+bindkey '^ ' autosuggest-accept   # Ctrl + Space
+
 zstyle ':completion:*' menu select
 zstyle ':completion::complete:*' gain-privileges 1
-
-zstyle ':fast-highlight:*' default         fg=white
-zstyle ':fast-highlight:*' command         fg=cyan
-zstyle ':fast-highlight:*' builtin         fg=blue
-zstyle ':fast-highlight:*' string          fg=yellow
-zstyle ':fast-highlight:*' variable        fg=green
-zstyle ':fast-highlight:*' path            fg=yellow
-zstyle ':fast-highlight:*' comment         fg=brightblack
-zstyle ':fast-highlight:*' unknown-token   fg=red,bold
